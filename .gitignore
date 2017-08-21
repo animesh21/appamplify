@@ -3,3 +3,5 @@ __pycache__
 .swp
 .swo
 idea/
+db.sqlite3
+.idea
