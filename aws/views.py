@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
-from django.views.generic import FormView, CreateView
+from django.views.generic import FormView, CreateView, RedirectView
 from django.urls import reverse
 from .forms import LoginForm
 from django.contrib.auth.models import User
@@ -35,4 +35,8 @@ class DashboardView(LoginRequiredMixin, FormView):
 
 class UserLogoutView(LogoutView):
     def get_next_page(self):
+        return reverse('login')
+
+class NotFoundView(RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
         return reverse('login')
