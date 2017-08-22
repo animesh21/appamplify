@@ -1,0 +1,14 @@
+{% extends 'aws/base.html' %}
+
+{% block content %}
+    {% load bootstrap3 %}
+    <h2>Login</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit">Login</button>
+        {% endbuttons %}
+        <a href="{% url 'signup' %}">Not yet registered, signup here</a>
+    </form>
+{% endblock %}
