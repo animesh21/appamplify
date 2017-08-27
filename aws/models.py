@@ -36,19 +36,20 @@ class AWSInstanceTypeModel(models.Model):
 
 
 class AWSSpotInstanceRequestModel(models.Model):
-    user = models.ForeignKey(User)
-    num_instances = models.IntegerField(null=True, default=None, verbose_name='Number of Instances')
+    user = models.ForeignKey(User, related_name='spot_requests')
+    num_instances = models.IntegerField(verbose_name='Number of Instances')
     instance_type = models.ForeignKey('AWSInstanceTypeModel')
-    max_price = models.FloatField(null=True, default=None)
+    max_price = models.FloatField()
     expiration_time = models.DurationField()
-    # request_id = models.CharField(max_length=255, null=True, default=None)
+    iam_fleet_role = models.CharField(max_length=64, verbose_name='IAM Fleet Role')
 
     def request_fleet(self):
         res = request_spot_fleet(
             self.num_instances,
             self.instance_type.name,
             str(self.max_price),
-            self.expiration_time
+            self.expiration_time,
+            self.iam_fleet_role
         )
         for spot_request in res.get('SpotInstanceRequests', []):
             AWSSpotInstanceRequestID.objects.create(

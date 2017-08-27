@@ -3,7 +3,7 @@
 {% block content %}
     {% load bootstrap3 %}
     {% bootstrap_messages %}
-    <h2> Welcome to the configuration page {% if user.is_authenticated %}, {{ user }}{% endif %} </h2>
+    <h2> Welcome to the configuration page{% if user.its_authenticated %}, {{ user }}{% endif %} </h2>
     <form method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}

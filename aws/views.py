@@ -75,13 +75,15 @@ class ConfigurationView(LoginRequiredMixin, FormView):
         instance_type = form.cleaned_data['instance_type']
         max_price = form.cleaned_data['max_price']
         expiration_time = form.cleaned_data['expiration_time']
+        iam_fleet_role = form.cleaned_data['iam_fleet_role']
         # print('Expiration time type: {}'.format(type(expiration_time)))
         spot_instance_request = AWSSpotInstanceRequestModel.objects.create(
             user=user,
             num_instances=num_instances,
             instance_type=instance_type,
             max_price=max_price,
-            expiration_time=expiration_time
+            expiration_time=expiration_time,
+            iam_fleet_role=iam_fleet_role
         )
         spot_instance_request.request_fleet()
         messages.add_message(self.request, messages.INFO, "Request placed successfully")

@@ -22,16 +22,16 @@ def configure_aws(access_key, secret_key):
         f.writelines(['[default]\n', 'region=ap-south-1\n'])
 
 
-def request_spot_fleet(num_instances, instance_type, spot_price, expiration_time):
+def request_spot_fleet(num_instances, instance_type, spot_price, expiration_time, iam_fleet_role):
     client = boto3.client('ec2')
     response = client.request_spot_fleet(
-        DryRun=True,
+        DryRun=False,
         SpotFleetRequestConfig={
             'AllocationStrategy': 'lowestPrice',
             # 'ClientToken': 'string',
             # 'ExcessCapacityTerminationPolicy': 'noTermination' | 'default',
             'FulfilledCapacity': num_instances,  # 123.0,
-            'IamFleetRole': 'terminateInstancesWithExpiration',
+            'IamFleetRole': iam_fleet_role,
             'LaunchSpecifications': [
                 {
                     # 'SecurityGroups': [

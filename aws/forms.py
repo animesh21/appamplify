@@ -43,7 +43,8 @@ class AWSSpotInstanceRequestForm(forms.ModelForm):
 
     class Meta:
         model = AWSSpotInstanceRequestModel
-        fields = ['num_instances', 'instance_type', 'max_price', 'expiration_time']
+        fields = ['num_instances', 'instance_type', 'max_price',
+                  'expiration_time', 'iam_fleet_role']
 
 
 class AWSSpotInstanceMonitorForm(forms.Form):
