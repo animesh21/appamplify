@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-from .models import AWSInstanceModel
+from .models import AWSInstanceModel, AWSCredentialsModel, AWSSpotInstanceRequestModel
+
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(
@@ -28,4 +29,22 @@ class AddInstanceForm(forms.ModelForm):
 
     class Meta:
         model = AWSInstanceModel
-        fields = ['user', 'name', 'login_name', 'ip_address', 'port_number', 'key', 'password']
+        fields = ['name', 'login_name', 'ip_address',
+                  'port_number', 'key', 'password']
+
+
+class AddCredentialsForm(forms.ModelForm):
+    class Meta:
+        model = AWSCredentialsModel
+        fields = ['access_key', 'secret_key']
+
+
+class AWSSpotInstanceRequestForm(forms.ModelForm):
+
+    class Meta:
+        model = AWSSpotInstanceRequestModel
+        fields = ['num_instances', 'instance_type', 'max_price', 'expiration_time']
+
+
+class AWSSpotInstanceMonitorForm(forms.Form):
+    request_id = forms.CharField(max_length=128)

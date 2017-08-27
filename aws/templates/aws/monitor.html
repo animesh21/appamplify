@@ -2,14 +2,13 @@
 
 {% block content %}
     {% load bootstrap3 %}
-    <h2> Welcome to the dashboard {% if user.is_authenticated %}, {{ user }}{% endif %} </h2>
     {% bootstrap_messages %}
-    <h3>Please enter your aws credentials:</h3>
+    <h2> Monitor your instances{% if user.is_authenticated %}, {{ user }}{% endif %} </h2>
     <form method="post" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
         {% buttons %}
-            <button type="submit">Save Credentials</button>
+            <button type="submit">Monitor Request</button>
         {% endbuttons %}
     </form>
 {% endblock %}
